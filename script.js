@@ -3,6 +3,7 @@ var colors = ['red','green','blue','orange'];
 var VOID = 'lightgrey';
 var FLASH = 'black';
 var grid = {};
+var gridElement = document.getElementById('grid');
 var state;
 var piece = {};
 var canvas;
@@ -152,8 +153,8 @@ document.body.onkeydown = keydown;
 
 for(var y=0;y<height;y++){
 	for(var x=0;x<width;x++)
-		document.body.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
-	document.body.innerHTML += '<br/>';
+		gridElement.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
+	gridElement.innerHTML += '<br/>';
 }
 
 reset();
