@@ -9,11 +9,6 @@ var piece = {};
 var canvas;
 var gl = null;
 
-function resize(){
-	var style = '';
-	style += 'canvas{width: '+window.innerWidth+'px;height: '+window.innerHeight+'px;}';
-	document.getElementById('style').innerHTML = style;
-}
 function keydown(e){
 	console.log(e);
 	switch(e.key){
@@ -148,7 +143,6 @@ function findTetrominoInner(tetromino,x,y,color){
 }
 
 // Initialize hooks
-document.body.onresize = resize;
 document.body.onkeydown = keydown;
 
 for(var y=0;y<height;y++){
