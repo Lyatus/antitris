@@ -1,7 +1,7 @@
-var width = 10, height = 20;
-var colors = ['red','green','blue','orange'];
-var VOID = 'lightgrey';
-var FLASH = 'black';
+var width = 8, height = 18;
+var colors = ['#ffff04','#f62e59','#3fc7f5','#ff6831'];
+var VOID = '#071820';
+var FLASH = '#E1F9D1';
 var grid = {};
 var gridElement = document.getElementById('grid');
 var state;
@@ -146,8 +146,11 @@ function findTetrominoInner(tetromino,x,y,color){
 document.body.onkeydown = keydown;
 
 for(var y=0;y<height;y++){
-	for(var x=0;x<width;x++)
+	for(var x=0;x<width;x++){
+		gridElement.innerHTML += '<div class="frame"></div>';
 		gridElement.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
+	}
+	gridElement.innerHTML += '<div class="frame"></div>';
 	gridElement.innerHTML += '<br/>';
 }
 
