@@ -7,7 +7,7 @@ body{
 #content{
 	margin: auto; /* Magic : everything is centered */
 	text-align:center;
-	margin-top: 15px;
+	/*margin-top: 15px;*/
 	width: 500px;
 }
 
@@ -37,6 +37,7 @@ body{
 	border-top: 1px solid #8db28c;
 	padding: 15px 25px 25px 25Px;
 	float: left;
+	margin-top: 15px;
 	/*margin-top: 54px;*/
 	/*display: inline-block;*/
 	/*padding:9px;*/
