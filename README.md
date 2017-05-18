@@ -1,6 +1,6 @@
 # Antitris
 
-Reverse Tetris - make tetrominos of same color with lines
+Reverse Tetris - make tetrominos of same color with multicolored lines
 
 You can try it at: http://luciencatonnet.com/Antitris/
 
