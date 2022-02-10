@@ -1,9 +1,8 @@
-var width = 8, height = 18;
-var colors = ['#ffff04','#f62e59','#3fc7f5','#ff6831'];
-var VOID = '#071820';
-var FLASH = '#E1F9D1';
+const width = 8, height = 18;
+const colors = ['#ffff04','#f62e59','#3fc7f5','#ff6831'];
+const VOID = '#071820';
+const FLASH = '#E1F9D1';
 var grid = {};
-var gridElement = document.getElementById('grid');
 var state;
 var piece = {};
 var tick = 0;
@@ -173,17 +172,19 @@ function compute_level() {
 	return Math.ceil(Math.log2(Math.max(1,score)));
 }
 
-// Initialize hooks
-document.body.onkeydown = keydown;
+window.addEventListener('load', function() {
+	document.body.onkeydown = keydown;
 
-for(var y=0;y<height;y++){
-	for(var x=0;x<width;x++){
+	const gridElement = document.getElementById('grid');
+	for(var y=0;y<height;y++){
+		for(var x=0;x<width;x++){
+			gridElement.innerHTML += '<div class="frame"></div>';
+			gridElement.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
+		}
 		gridElement.innerHTML += '<div class="frame"></div>';
-		gridElement.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
+		gridElement.innerHTML += '<br/>';
 	}
-	gridElement.innerHTML += '<div class="frame"></div>';
-	gridElement.innerHTML += '<br/>';
-}
 
-reset();
-setInterval(update,10);
+	reset();
+	setInterval(update, 10);
+});
