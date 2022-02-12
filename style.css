@@ -14,13 +14,18 @@ body {
 	width: 500px;
 }
 
-.cell {
+cell {
 	width: 20px;
 	height: 20px;
 	display: inline-block;
 	margin: 2px 2px 2px 2px;
 }
-.frame {
+cell.c0 { background-color: #ffff04; }
+cell.c1 { background-color: #f62e59; }
+cell.c2 { background-color: #3fc7f5; }
+cell.c3 { background-color: #ff6831; }
+cell.flash { background-color: #E1F9D1; }
+dot {
 	display: inline-block;
 	height: 1px;
 	width: 1px;

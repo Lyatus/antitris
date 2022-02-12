@@ -1,7 +1,4 @@
 const width = 8, height = 18;
-const colors = ['#ffff04','#f62e59','#3fc7f5','#ff6831'];
-const VOID = '#071820';
-const FLASH = '#E1F9D1';
 let grid = {};
 let state;
 let piece = {};
@@ -66,9 +63,9 @@ function update() {
 				let over = true;
 				for(let x = 0; x < width; x++) {
 					for(let y = height - 1; y > 0; y--) {
-						if(cell(x,y) == VOID && cell(x,y-1) != VOID) {
+						if(cell(x,y) == '' && cell(x,y-1) != '') {
 							cell_set(x, y, cell(x, y - 1));
-							cell_set(x, y - 1, VOID);
+							cell_set(x, y - 1, '');
 							over = false;
 						}
 					}
@@ -83,7 +80,7 @@ function update() {
 			let tetromino = find_tetromino();
 			if(tetromino) {
 				for(let i = 0; i < 4; i++) {
-					grid[tetromino[i]] = FLASH;
+					grid[tetromino[i]] = 'flash';
 				}
 				showing_start_tick = tick;
 				score += 1 + combo_counter;
@@ -99,8 +96,8 @@ function update() {
 			if(tick < showing_start_tick + 50) {
 				for(let x = 0; x < width; x++) {
 					for(let y = 0; y < height; y++) {
-						if(cell(x, y) == FLASH) {
-							cell_set(x, y, VOID);
+						if(cell(x, y) == 'flash') {
+							cell_set(x, y, '');
 						}
 					}
 				}
@@ -126,11 +123,11 @@ function cell_set(x,y,v) {
 }
 function draw() {
 	for(let id in grid) {
-		document.getElementById(id).style.backgroundColor = grid[id];
+		document.getElementById(id).className = grid[id];
 	}
-	if(state=='playing') {
-		for(let i=-2;i<2;i++) {
-			document.getElementById((piece.x+i)+'_'+piece.y).style.backgroundColor = piece.c[i];
+	if(state == 'playing') {
+		for(let i = -2; i < 2; i++) {
+			document.getElementById((piece.x+i)+'_'+piece.y).className = piece.c[i];
 		}
 	}
 	redraw = false;
@@ -139,7 +136,7 @@ function reset() {
 	state = 'playing';
 	for(let x = 0; x < width; x++) {
 		for(let y = 0; y < height; y++) {
-			cell_set(x, y, VOID);
+			cell_set(x, y, '');
 		}
 	}
 	reset_piece();
@@ -152,7 +149,7 @@ function reset_piece() {
 	piece.y = 0;
 	piece.c = [];
 	for(let i = -2; i < 2; i++) {
-		piece.c[i] = colors[parseInt(Math.random()*colors.length)];
+		piece.c[i] = 'c' + parseInt(Math.random() * 4);
 	}
 }
 function piece_collide() {
@@ -162,7 +159,7 @@ function piece_collide() {
 		return true;
 	}
 	for(let i = -2; i < 2; i++) {
-		if(cell(piece.x + i, piece.y) != VOID) {
+		if(cell(piece.x + i, piece.y) != '') {
 			return true;
 		}
 	}
@@ -171,7 +168,7 @@ function piece_collide() {
 function find_tetromino() {
 	for(let y = 0; y < height; y++) {
 		for(let x = 0; x < width; x++) {
-			if(cell(x, y) != VOID) {
+			if(cell(x, y) != '') {
 				let tetromino = [];
 				find_tetromino_inner(tetromino, x, y, cell(x, y));
 				if(tetromino.length == 4) {
@@ -207,10 +204,10 @@ window.addEventListener('load', function() {
 	const gridElement = document.getElementById('grid');
 	for(let y = 0; y < height; y++) {
 		for(let x = 0; x < width; x++) {
-			gridElement.innerHTML += '<div class="frame"></div>';
-			gridElement.innerHTML += '<div id="'+x+'_'+y+'" class="cell"></div>';
+			gridElement.innerHTML += '<dot/>';
+			gridElement.innerHTML += '<cell id="'+x+'_'+y+'"></div>';
 		}
-		gridElement.innerHTML += '<div class="frame"></div>';
+		gridElement.innerHTML += '<dot/>';
 		gridElement.innerHTML += '<br/>';
 	}
 
