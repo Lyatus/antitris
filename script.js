@@ -7,7 +7,10 @@ let state;
 let piece = {};
 let tick = 0;
 let redraw = true;
-let score, level
+let score;
+let level;
+let combo_counter;
+let showing_start_tick;
 
 function keydown(e) {
 	switch(e.key) {
@@ -82,16 +85,18 @@ function update() {
 				for(let i = 0; i < 4; i++) {
 					grid[tetromino[i]] = FLASH;
 				}
-				showingStartTick = tick;
-				score += 100;
+				showing_start_tick = tick;
+				score += 1 + combo_counter;
+				combo_counter += 1;
 				state = 'showing';
 			} else { // No tetromino found, go back to playing
 				state = 'playing';
+				combo_counter = 0;
 			}
 			redraw = true;
 			break;
 		case 'showing':
-			if(tick < showingStartTick + 50) {
+			if(tick < showing_start_tick + 50) {
 				for(let x = 0; x < width; x++) {
 					for(let y = 0; y < height; y++) {
 						if(cell(x, y) == FLASH) {
@@ -139,6 +144,7 @@ function reset() {
 	}
 	reset_piece();
 	score = 0;
+	combo_counter = 0;
 	update_score();
 }
 function reset_piece() {
@@ -192,7 +198,7 @@ function update_score() {
 	document.getElementById('level').innerHTML = level = compute_level();
 }
 function compute_level() {
-	return Math.ceil(Math.log2(Math.max(1,score)));
+	return Math.ceil(Math.max(1, Math.log2(score)));
 }
 
 window.addEventListener('load', function() {
