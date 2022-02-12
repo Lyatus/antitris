@@ -201,14 +201,16 @@ function compute_level() {
 window.addEventListener('load', function() {
 	document.body.onkeydown = keydown;
 
-	const gridElement = document.getElementById('grid');
+	const grid_el = document.getElementById('grid');
 	for(let y = 0; y < height; y++) {
 		for(let x = 0; x < width; x++) {
-			gridElement.innerHTML += '<dot/>';
-			gridElement.innerHTML += '<cell id="'+x+'_'+y+'"></div>';
+			const cell = document.createElement('cell')
+			cell.id = `${x}_${y}`;
+			grid_el.appendChild(document.createElement('dot'));
+			grid_el.appendChild(cell);
 		}
-		gridElement.innerHTML += '<dot/>';
-		gridElement.innerHTML += '<br/>';
+		grid_el.appendChild(document.createElement('dot'));
+		grid_el.appendChild(document.createElement('br'));
 	}
 
 	reset();
