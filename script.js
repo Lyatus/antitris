@@ -27,6 +27,21 @@ function keydown(e) {
 				redraw = true;
 			}
 			break;
+		case 'ArrowDown':
+			piece.y++;
+			if(piece_collide()) {
+				piece.y--;
+			} else {
+				redraw = true;
+			}
+			break;
+		case ' ':
+			do {
+				piece.y++;
+			} while(!piece_collide());
+			piece.y--;
+			redraw = true;
+			break;
 		case 'ArrowUp':
 			let tmp = piece.c[-2];
 			piece.c[-2] = piece.c[-1];
