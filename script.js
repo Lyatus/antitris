@@ -1,15 +1,20 @@
 const width = 8, height = 18;
 let grid = {};
-let state;
+let state = 'gameover';
 let piece = {};
 let tick = 0;
 let redraw = true;
-let score;
+let score = 0;
 let level;
 let combo_counter;
-let showing_start_tick;
 
 function keydown(e) {
+	if(state == 'gameover') {
+		if(tick > 20 && e.key == ' ') {
+			reset();
+		}
+		return;
+	}
 	switch(e.key) {
 		case 'ArrowLeft':
 			piece.x--;
@@ -59,8 +64,8 @@ function update() {
 				piece.y++;
 				if(piece_collide()) {
 					piece.y--;
-					if(piece.y==0) {
-						state = 'gameover';
+					if(piece.y == 0) {
+						gameover();
 					} else { // Fixate piece
 						for(let i = -2; i < 2; i++) {
 							cell_set(piece.x + i, piece.y, piece.c[i]);
@@ -97,7 +102,7 @@ function update() {
 				for(let i = 0; i < 4; i++) {
 					grid[tetromino[i]] = 'flash';
 				}
-				showing_start_tick = tick;
+				tick = 0;
 				score += 1 + combo_counter;
 				combo_counter += 1;
 				state = 'showing';
@@ -108,7 +113,7 @@ function update() {
 			redraw = true;
 			break;
 		case 'showing':
-			if(tick < showing_start_tick + 50) {
+			if(tick > 5) {
 				for(let x = 0; x < width; x++) {
 					for(let y = 0; y < height; y++) {
 						if(cell(x, y) == 'flash') {
@@ -120,9 +125,6 @@ function update() {
 				update_score();
 				redraw = true;
 			}
-			break;
-		case 'gameover':
-			reset();
 			break;
 	}
 	if(redraw) {
@@ -148,6 +150,7 @@ function draw() {
 	redraw = false;
 }
 function reset() {
+	document.getElementById('popup').classList.remove('show');
 	state = 'playing';
 	for(let x = 0; x < width; x++) {
 		for(let y = 0; y < height; y++) {
@@ -212,6 +215,13 @@ function update_score() {
 function compute_level() {
 	return Math.ceil(Math.max(1, Math.log2(score)));
 }
+function gameover() {
+	state = 'gameover';
+	tick = 0;
+	const popup = document.getElementById('popup');
+	popup.innerHTML = '<h2>Game Over</h2><h2>Press Space To Restart</h2>';
+	popup.classList.add('show');
+}
 
 window.addEventListener('load', function() {
 	document.body.onkeydown = keydown;
@@ -228,6 +238,6 @@ window.addEventListener('load', function() {
 		grid_el.appendChild(document.createElement('br'));
 	}
 
-	reset();
+	update_score();
 	setInterval(update, 10);
 });

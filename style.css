@@ -8,10 +8,12 @@ body {
 }
 
 #content {
+	position: absolute;
 	margin: auto; /* Magic : everything is centered */
-	text-align:center;
-	margin-top: 15px;
 	width: 500px;
+	height: 562px;
+	left: calc(50% - 500px/2);
+	top: calc(50% - 562px/2);
 }
 
 cell {
@@ -35,17 +37,9 @@ dot {
 }
 
 #grid {
-	background-color: #071820;
-	border-left: 1px solid #8db28c;
-	border-right: 1px solid #8db28c;
-	border-bottom: 1px solid #8db28c;
-	border-top: 1px solid #8db28c;
-	padding: 15px 25px 25px 25Px;
+	border: 1px solid #8db28c;
+	padding: 25px;
 	float: left;
-	margin-top: 15px;
-	/*margin-top: 54px;*/
-	/*display: inline-block;*/
-	/*padding:9px;*/
 }
 
 aside {
@@ -53,7 +47,23 @@ aside {
 	float: left;
 	margin-right: 8px;
 	margin-top: 64px;
-	width: 100px;
+	width: 117px;
+	text-align: right;
+}
+
+#popup {
+	display: none;
+}
+#popup.show {
+	display: block;
+	position: absolute;
+	width: 180px;
+	height: 80px;
+	top: calc(50% - 50px);
+	left: calc(50% - 100px);
+	background-color: #071820;
+	border: 1px solid #8db28c;
+	padding: 10px;
 }
 
 #score {
@@ -77,22 +87,19 @@ p {
 }
 
 h1 {
-	text-align: right;
-	font-weight: 700;
-	font-family: 'Letter Gothic Std';
-	font-size: 22px;
-	color: #dff8d0;
-	/*border-top: 1px solid white;
-	padding-top: 8px;*/
-	line-height: 1.2;
-}
-
-h2 {
 	text-align: center;
 	font-weight: 200;
 	font-family: 'Kumar One', cursive;
 	font-size: 24px;
 	color: #dff8d0;
 	padding-bottom: 8px;
-	border-bottom: 2px solid #8db28c;
+	border-bottom: 1px solid #8db28c;
+}
+
+h2 {
+	font-weight: 700;
+	font-family: 'Letter Gothic Std';
+	font-size: 22px;
+	color: #dff8d0;
+	line-height: 1.2;
 }
